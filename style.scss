@@ -1,0 +1,282 @@
+$border-radius-06: 0.6rem;
+$gris: #adadad;
+$gris-osc: #474747;
+$bg-green: #068659;
+$bdr-green: #034a31;
+
+* {
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;700&display=swap');
+    font-family: 'Montserrat';
+}
+
+body {
+    margin: 0;
+}
+
+// Elements
+
+.btn {
+    padding: 0.7rem 1rem;
+    margin: 0.5rem 0;
+    border: 1px solid transparent;
+    border-radius: $border-radius-06;
+
+    &.btn-danger {
+        color: white;
+        background-color: #e33f08;
+        border-color: #c82b0c;
+    }
+
+    &.btn-ok {
+        color: white;
+        background-color: $bg-green;
+        border: 1px solid $bdr-green;
+    }
+
+}
+
+input {
+    font-size: 18px;
+    padding: 0.6rem;
+    font-weight: 400;
+    margin: 1rem 0;
+    border-radius: $border-radius-06;
+    border: 1px solid $gris;
+    box-sizing: border-box;
+}
+
+select {
+    font-size: 18px;
+    border: none;
+    padding: 0.6rem;
+}
+
+option {
+    padding: 0.6rem;
+}
+
+.container {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+nav {
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.login-container {
+    height: 100vh;
+    display: flex;
+
+    h2 {
+        margin: 0;
+    }
+
+    .login,
+    .logeado {
+        border: 1px solid $gris;
+        width: 500px;
+        padding: 0.6rem;
+        margin: auto auto;
+        border-radius: $border-radius-06;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+
+    .login {
+
+        input[type="text"],
+        input[type="password"] {
+            font-size: 24px;
+            width: 100%;
+            border: 1px solid $gris;
+        }
+
+
+    }
+
+}
+
+form {
+    input {
+        width:100%;
+        display: block;
+    }
+
+    textarea {
+        font-size: 18px;
+        font-weight: 400;
+        display: block;
+        width:100%;
+        margin: 1rem 0;
+        padding: 1rem;
+        border: 1px solid $gris;
+        border-radius: $border-radius-06;
+        box-sizing: border-box;
+    }
+}
+
+.d-none {
+    display: none !important;
+}
+
+
+.books {
+    width: min-content;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 auto;
+
+    .book {
+        margin: 0.3rem;
+        display: inline-block;
+        cursor: default;
+
+        .book-container {
+            height: 22.5rem;
+            width: 16rem;
+            overflow: hidden;
+            background-color: black;
+            border-radius: $border-radius-06;
+            box-shadow: 2px 2px 5px #494949, 4px 4px 10px -5px #6b6b6b;
+            text-align: center;
+
+            img {
+                position: relative;
+                width: 100%;
+                top: -100%;
+                z-index: 0;
+            }
+
+            .book-info {
+                background-color: #262626a3;
+                // descomentar
+                backdrop-filter: blur(5px);
+                top: 17rem;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                border-radius: $border-radius-06;
+                // descomentar
+                transition: 0.5s;
+                transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                box-sizing: border-box;
+                z-index: 1;
+                font-weight: 200;
+
+                div.title {
+                    height: 5rem;
+                    display: flex;
+
+                    h1 {
+                        vertical-align: middle;
+                        color: white;
+                        margin: 0;
+                        margin: auto auto;
+                    }
+                }
+
+                .description {
+                    color: white;
+                    padding: 0 1rem;
+                }
+
+            }
+        }
+
+        .detail {
+            background-color: $gris-osc;
+            color: white;
+            opacity: 0;
+            z-index: 2;
+            width: 0;
+            position: absolute;
+            padding: 0.5rem;
+            margin-top: 2rem;
+            font-size: 16px;
+            box-shadow: 4px 4px 10px -5px #6b6b6b;
+            border-radius: $border-radius-06 $border-radius-06 $border-radius-06 0;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+
+            h5 {
+                margin: 0;
+                font-weight: 400;
+                font-size: 12px;
+                display: inline-block;
+            }
+
+        }
+
+
+        .opt {
+            margin: 1rem 0.2rem;
+            display: flex;
+            justify-content: space-between;
+
+            p,
+            button {
+                margin: auto 0.5rem;
+                vertical-align: middle;
+            }
+
+            p.disponible {
+                color: $bg-green;
+            }
+
+            p.no-disponible {
+                color: $gris;
+            }
+
+        }
+    }
+
+    .book:hover {
+        .book-info {
+            background-color: rgba(10, 10, 10, 0.759);
+            top: 0;
+        }
+
+        .detail {
+            transition: 0.2s;
+            transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 15rem;
+            z-index: 2;
+            opacity: 1;
+            margin-top: -1rem;
+            margin-left: 15rem;
+        }
+    }
+
+}
+
+// .flex{
+//     display: flex;
+//     flex-direction: column;
+// }
+.box-container{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #bdbdbda3;
+    backdrop-filter: blur(1px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nuevo-libro {
+    max-width: 30rem;
+    .col-5 {
+        width: 50%;
+        float: left;
+        padding: 0 0.3rem;
+        box-sizing:border-box;
+    }
+}
