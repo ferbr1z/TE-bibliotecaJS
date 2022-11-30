@@ -1,3 +1,0 @@
-defaultLoadBooks();
-defaultLoadUsers();
-cargarPrestamos();

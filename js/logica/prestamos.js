@@ -1,6 +1,9 @@
+import { isActive } from './session.js'
+import { libros, getBook } from './books.js';
 const prestamos = [];
 const listaDeseos = [];
-prestamoId = 0;
+let prestamoId = 0;
+
 const crearPrestamo = (libro, fechaVenc, user = isActive()) => {
     if (!(libro && fechaVenc)) {
         console.log("Ingrese todos los valores");
@@ -34,6 +37,17 @@ const crearPrestamo = (libro, fechaVenc, user = isActive()) => {
         return false;
     }
 };
+
+const cargarDeseo = (id) => {
+    const libro = getBook(id);
+    listaDeseos.push(libro)
+}
+
+const hacerPrestamos = () => {
+    while (listaDeseos.length > 0) {
+        crearPrestamo(listaDeseos.pop())
+    }
+}
 
 const cargarPrestamos = () => {
     const prestamosStorage = JSON.parse(localStorage.getItem("prestamos"));
@@ -79,3 +93,5 @@ const misPrestamos = () => {
     });
     return result;
 };
+
+export { prestamos, cargarPrestamos, crearPrestamo, verPrestamos, misPrestamos, listaDeseos }

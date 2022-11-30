@@ -22,7 +22,7 @@ const getUser = (userId) => {
     return temp;
 }
 
-const defaultLoadUsers = () => {
+const cargarUsers = () => {
     const localUsers = JSON.parse(localStorage.getItem('users'));
     users = [];
     if (localUsers) {
@@ -34,9 +34,4 @@ const defaultLoadUsers = () => {
     }
 }
 
-
-const cargarUsers = () => {
-    defaultLoadUsers();
-}
-
-// export { users, cargarUsers ,getUser}
+export { users, crearUsuario, getUser, cargarUsers }

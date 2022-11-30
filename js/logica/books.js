@@ -1,3 +1,4 @@
+import {isActive} from './session.js'
 
 // Lista de libros
 let libros = []
@@ -6,10 +7,10 @@ let libroId = 0;
 
 // Retorna un libro
 const crearLibro = (title, author, genre, editorial, desc, year, img, cantidad) => {
-    if (!(isActive().rol === 'admin')) {
-        alert('No tienes permisos para añadir nuevos libros');
-        return false;
-    }
+    // if (!(isActive().rol === 'admin')) {
+    //     alert('No tienes permisos para añadir nuevos libros');
+    //     return false;
+    // }
         libros.push({
             libroId: libroId++,
             title,
@@ -32,7 +33,7 @@ const crearLibro = (title, author, genre, editorial, desc, year, img, cantidad) 
 
 
 // Agregamos libros que serian los 'por defecto', si no hay nada en localstorage
-const defaultLoadBooks = () => {
+const cargarLibros = () => {
     const localLibros = JSON.parse(localStorage.getItem('libros'));
     libros = [];
     if (localLibros) {
@@ -87,7 +88,7 @@ const getBook = (id) => {
     return libros.find(l=>l.libroId==id)
 }
 
-const filtrar = (filtro = 0, campo = '') => {
+const filtrarLibros = (filtro = 0, campo = '') => {
     let librosFiltrados = [];
 
     // eliminar tildes
@@ -124,4 +125,4 @@ const filtrar = (filtro = 0, campo = '') => {
 }
 
 
-// export { crearLibro };
+export {libros,crearLibro,getBook,filtrarLibros,cargarLibros}

@@ -1,5 +1,6 @@
 // Valida el usuario y guarda el ID en el localStorage
-login = (user, pass) => {
+import { users } from "./users.js";
+const login = (user, pass) => {
 
     if (isActive()){
         console.log('Ya estas logeado');
@@ -7,7 +8,7 @@ login = (user, pass) => {
     }
 
     // busca el usuario en la lista de usuarios
-    [userLog] = users.filter(u => u.nombre == user);
+    const [userLog] = users.filter(u => u.nombre == user);
     console.log(userLog);
     // Valida el usuario, si existe
     if (userLog) {
@@ -24,7 +25,7 @@ login = (user, pass) => {
 }
 
 
-logout = () => {
+const logout = () => {
     const user = isActive();
     if(user){
         localStorage.removeItem('active');
@@ -33,10 +34,12 @@ logout = () => {
 }
 
 // Determina si hay o no un usuario logeado
-isActive = () => {
+const isActive = () => {
 
     const user = JSON.parse(localStorage.getItem('active'));
     return (user ? user: false);
 }
+
+export {login,logout,isActive}
 
 

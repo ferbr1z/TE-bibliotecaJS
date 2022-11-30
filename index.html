@@ -1,36 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="has-navbar-fixed-top">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UniBooks</title>
+    <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css" />
-    <script src="https://momentjs.com/downloads/moment.min.js"></script>
-    <script src="./js/logica/users.js"></script>
-    <script src="./js/logica/session.js"></script>
-    <script src="./js/logica/books.js"></script>
-    <script src="./js/logica/prestamos.js"></script>
-    <script src="./js/logica/index.js"></script>
-    <title>Document</title>
+    <script src="./js/index.js" type="module"></script>
+
   </head>
 
   <body>
-    <nav>
+    <div class="alert-container d-none">
+
+    </div>
+
+    <nav id="navbar">
       <div class="container">
-        <div class="search">
-          <label for="search-filter">Filtrar por:</label>
-          <select id="search-filter">
-            <option value="1">T&iacute;tulo</option>
-            <option value="2">G&eacute;nero</option>
-            <option value="3">Autor</option>
-          </select>
-          <input type="text" name="" id="searcher" />
+        <span class="logo">
+          <img src="./img/logo.png" alt="" />
+        </span>
+        <div class="search-box">
+          <input type="text" name="" id="search">
         </div>
-        <div id="userOpt"></div>
+        <ul class="lista" id="nav-opt">
+
+        </ul>
       </div>
     </nav>
-    <div class="container">
-      <div class="books"></div>
+
+
+    <div class="container main">
+      <div class="cards"></div>
     </div>
   </body>
 </html>
