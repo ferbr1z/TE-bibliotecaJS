@@ -3,7 +3,7 @@ $gris: #767676;
 $gris-light: #dcdcdc;
 $primary: #00d1b2;
 $border-radius: 0.4rem;
-$nav-bg:#f6f6f6;
+$nav-bg: #f6f6f6;
 // $nav-bg:#fff;
 
 * {
@@ -22,6 +22,7 @@ body {
 a {
     text-decoration: none;
     color: inherit;
+    display: inline-block;
 }
 
 
@@ -31,6 +32,7 @@ a {
     display: inline-block;
     margin: 0;
     padding: 0;
+
     li {
         display: inline-block;
     }
@@ -44,6 +46,7 @@ nav {
     border-bottom: 1px solid $gris-light;
     box-shadow: 0px 0px 10px -5px $gris;
     padding: 0.3rem 0;
+
     .container {
         margin: auto auto !important;
         display: flex;
@@ -60,12 +63,13 @@ nav {
             // margin-right: 1rem;
             position: absolute;
             top: 0.55rem;
-            filter:drop-shadow(0px 3px 2px #47474747)
+            filter: drop-shadow(0px 3px 2px #47474747)
         }
     }
 
     .search-box {
-        width: 300px;
+        width: 450px;
+        display: flex;
     }
 
 }
@@ -146,9 +150,11 @@ nav {
             padding-top: 1rem;
             border-top: 1px solid $gris-light;
             justify-content: space-between;
-            ul{
+
+            ul {
                 width: 50%;
-                li{
+
+                li {
                     display: block;
                     font-size: 12px;
                     white-space: nowrap;
@@ -167,16 +173,18 @@ nav {
     padding: 0.5rem;
     font-size: 14px;
     margin-left: 0.3rem;
+
     &.btn-borderless {
         border-color: transparent;
     }
+
     &.btn-primary {
         background-color: $primary;
         border-color: transparent;
         color: white;
     }
 
-    &.btn-danger{
+    &.btn-danger {
         background-color: #f14668;
         border-color: transparent;
         color: #fff;
@@ -195,35 +203,42 @@ nav {
     justify-content: center;
     align-items: center;
     z-index: 1;
+
     .alert {
-        width:min-content;
+        width: min-content;
         background-color: white;
         padding: 1.5rem 2rem 2rem;
         border-radius: $border-radius;
         border: 1px solid $gris-light;
         box-shadow: 10px 10px 15px -5px $gris, 0 0 10px -6px $gris;
-        .msg{
+
+        .msg {
             min-width: 300px;
             padding-bottom: 1rem;
+
             h2 {
                 padding: 0;
                 margin: 0;
             }
-        
+
         }
-        .opt{
+
+        .opt {
             display: grid;
             grid-template-columns: 1fr 1fr;
             width: fit-content;
-            .btn{
+
+            .btn {
                 text-align: center;
                 box-sizing: border-box;
                 width: 100%;
             }
-            .btn:first-child{
+
+            .btn:first-child {
                 border-radius: $border-radius 0 0 $border-radius;
             }
-            .btn:nth-child(2){
+
+            .btn:nth-child(2) {
                 border-radius: 0 $border-radius $border-radius 0;
             }
         }
@@ -243,17 +258,21 @@ nav {
     display: flex;
     align-items: center;
     width: fit-content;
-    a{
+
+    a {
         margin: 0 0.1rem;
     }
 }
 
-.is-centered{
-    margin: auto ;
+.is-centered {
+    margin: auto;
 }
 
-input[type='text'],input[type='password']{
-    width: 100%;
+input[type='text'],
+input[type='password'],
+input[type='number'],
+select,
+textarea {
     display: block;
     padding: 0.5rem;
     margin: 0 auto;
@@ -262,6 +281,67 @@ input[type='text'],input[type='password']{
     box-sizing: border-box;
 }
 
-.form-field{
+input[type='text'],
+input[type='password'],
+input[type='number'] {
+    width: 100%;
+}
+
+.form-field {
     margin: 1rem 0;
+}
+
+#add-libro {
+    width: 800px;
+    margin: 0.5rem auto;
+
+    .colums-add-libro {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        textarea {
+            margin: 0.5rem;
+        }
+    }
+
+    .columns-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .add-libro-input-container {
+        margin: 0.5rem
+    }
+}
+
+.tabla {
+    // border:1px solid $gris-light;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 18px;
+    box-sizing: content-box;
+
+    tr {
+        display: grid;
+        grid-template-columns: repeat(4, 2fr) 1fr;
+    }
+
+    tr:nth-child(2n) {
+        background-color: $gris-light;
+    }
+
+    td {
+        padding: 0.5rem;
+        box-sizing: border-box;
+
+    }
+
+    th {
+        text-align: left;
+    }
+
+    tfoot {
+        color: $primary;
+    }
+
 }

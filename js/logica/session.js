@@ -2,7 +2,7 @@
 import { users } from "./users.js";
 const login = (user, pass) => {
 
-    if (isActive()){
+    if (getUserActive()){
         console.log('Ya estas logeado');
         return false;
     }
@@ -26,7 +26,7 @@ const login = (user, pass) => {
 
 
 const logout = () => {
-    const user = isActive();
+    const user = getUserActive();
     if(user){
         localStorage.removeItem('active');
         console.log('Cierre de sessión con exito');
@@ -34,12 +34,12 @@ const logout = () => {
 }
 
 // Determina si hay o no un usuario logeado
-const isActive = () => {
+const getUserActive = () => {
 
     const user = JSON.parse(localStorage.getItem('active'));
     return (user ? user: false);
 }
 
-export {login,logout,isActive}
+export {login,logout,getUserActive}
 
 

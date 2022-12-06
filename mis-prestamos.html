@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UniBooks</title>
+  <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+  <script src="./js/mis-prestamos.js" type="module"></script>
+</head>
+
+<body>
+  <div class="alert-container d-none"></div>
+
+  <nav id="navbar">
+    <div class="container">
+      <span class="logo">
+        <img src="./img/logo.png" alt="" />
+      </span>
+
+      <ul class="lista" id="nav-opt"> <a href="/" class="btn"><< Volver</a> </ul>
+    </div>
+  </nav>
+
+  <div class="container main">
+     <table class="tabla">
+      <thead>
+        <tr>
+          <th>Libro</th>
+          <th>A&ntilde;o</th>
+          <th>Genero</th>
+          <th>Costo</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="lista-prestamos"></tbody>
+    </table>
+    <h5>* Todos los prestamos tienen un costo de 10.000GS</h5>
+  </div>
+</body>
+
+</html>

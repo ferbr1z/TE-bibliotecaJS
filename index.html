@@ -1,37 +1,86 @@
 <!DOCTYPE html>
 <html class="has-navbar-fixed-top">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>UniBooks</title>
-    <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/style.css" />
-    <script src="./js/index.js" type="module"></script>
 
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UniBooks</title>
+  <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+  <script src="./js/index.js" type="module"></script>
+</head>
 
-  <body>
-    <div class="alert-container d-none">
+<body id="index">
+  <div class="alert-container d-none"></div>
 
-    </div>
-
-    <nav id="navbar">
-      <div class="container">
-        <span class="logo">
-          <img src="./img/logo.png" alt="" />
-        </span>
-        <div class="search-box">
-          <input type="text" name="" id="search">
-        </div>
-        <ul class="lista" id="nav-opt">
-
-        </ul>
+  <nav id="navbar">
+    <div class="container">
+      <span class="logo">
+        <img src="./img/logo.png" alt="" />
+      </span>
+      <div class="search-box">
+        <select name="" id="filtro">
+          <option value="1">Titulo</option>
+          <option value="2">Autor</option>
+          <option value="3">Genero</option>
+        </select>
+        <input type="text" name="" id="search" placeholder="Escribe algo aquí..." />
       </div>
-    </nav>
-
-
-    <div class="container main">
-      <div class="cards"></div>
+      <ul class="lista" id="nav-opt"></ul>
     </div>
-  </body>
+  </nav>
+
+  <div class="container main">
+    <form id="add-libro" class="d-none">
+      <div class="colums-add-libro">
+        <textarea name="" id="desc" rows="10" placeholder="A&ntilde;ade una descripci&oacute;n"></textarea>
+        <div>
+          <div class="columns-2">
+            <div class="add-libro-input-container "><input type="text" id="title" placeholder="Titulo" /></div>
+            <div class="add-libro-input-container "><input type="text" id="author" placeholder="Autor" /></div>
+            <div class="add-libro-input-container "><input type="text" id="genre" placeholder="Genero" /></div>
+            <div class="add-libro-input-container "><input type="text" id="edit" placeholder="Editorial" /></div>
+            <div class="add-libro-input-container "><input type="number" id="year" placeholder="A&ntilde;o" /></div>
+            <div class="add-libro-input-container ">
+              <input type="number" id="cantidad" placeholder="Cantidad" />
+            </div>
+          </div>
+          <div class="add-libro-input-container "><input type="text" id="img" placeholder="URL de Imagen" /></div>
+          <button class="btn btn-primary" id="crear-libro">Crear Libro</button>
+        </div>
+      </div>
+    </form>
+    <ul class="lista" id="verPantallas">
+      <li><a class="btn btn-primary" href="#" id="verLibros">Libros</a></li>
+      <li><a class="btn" href="#" id="verDeseos">Lista de Deseos</a></li>
+    </ul>
+
+    <div class="cards"></div>
+
+    <table class="d-none tabla">
+      <thead>
+        <tr>
+          <th>Libro</th>
+          <th>A&ntilde;o</th>
+          <th>Genero</th>
+          <th>Costo</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="lista-deseos"></tbody>
+      <tfoot>
+        <td></td>
+        <td></td>
+        <td><b>Total</b></td>
+        <td><b id="costo-total">0</b></td>
+        <td>
+          <button class="btn btn-primary" id="los-llevo">Los llevo!</button>
+        </td>
+      </tfoot>
+    </table>
+    <h5>* Todos los prestamos tienen un costo de 10.000GS</h5>
+  </div>
+</body>
+
 </html>

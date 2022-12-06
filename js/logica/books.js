@@ -1,4 +1,4 @@
-import {isActive} from './session.js'
+import { getUserActive } from './session.js'
 
 // Lista de libros
 let libros = []
@@ -11,26 +11,43 @@ const crearLibro = (title, author, genre, editorial, desc, year, img, cantidad) 
     //     alert('No tienes permisos para añadir nuevos libros');
     //     return false;
     // }
-        libros.push({
-            libroId: libroId++,
-            title,
-            author,
-            genre,
-            editorial,
-            desc,
-            year,
-            img,
-            cantidad: cantidad || 1
-        });
 
-    localStorage.removeItem('libros');
-    localStorage.setItem('libros', JSON.stringify(libros));
-    localStorage.removeItem('ultLibroId');
-    localStorage.setItem('ultLibroId', libroId)
-    
+    if (libros.find(l => normalizarTexto(l.title) === normalizarTexto(title) && normalizarTexto(l.author) === normalizarTexto(author))) return false;
+
+    libros.push({
+        id: libroId++,
+        title,
+        author,
+        genre,
+        editorial,
+        desc,
+        year,
+        img,
+        costo: 10000,
+        cantidad: parseInt(cantidad) || 1
+    });
+
+    guardarLocal();
     return true
 }
 
+
+const guardarLocal = () => {
+    localStorage.removeItem('libros');
+    localStorage.setItem('libros', JSON.stringify(libros));
+    localStorage.removeItem('ultLibroId');
+    localStorage.setItem('ultLibroId', parseInt(libroId))
+}
+
+const descontarLibro = (libro) => {
+    libros.forEach(l => l.id === libro.id ? l.cantidad = l.cantidad - 1 : null);
+    guardarLocal();
+}
+
+const aumentarLibro = (libroId) => {
+    libros.forEach(l => l.id === libroId ? l.cantidad = l.cantidad + 1 : null);
+    guardarLocal();
+}
 
 // Agregamos libros que serian los 'por defecto', si no hay nada en localstorage
 const cargarLibros = () => {
@@ -85,35 +102,33 @@ const cargarLibros = () => {
 }
 
 const getBook = (id) => {
-    return libros.find(l=>l.libroId==id)
+    const [result] = libros.filter(l => l.id === id);
+    return result
+}
+
+// eliminar tildes
+const normalizarTexto = (str) => {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
 const filtrarLibros = (filtro = 0, campo = '') => {
     let librosFiltrados = [];
 
-    // eliminar tildes
-    const normalizarTexto = (str) => {
-        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    }
-
     const contains = (libro, campo) => {
-        return normalizarTexto(libro.toLowerCase())
-            .indexOf(normalizarTexto(campo.toLowerCase())) >= 0;
+        return normalizarTexto(libro)
+            .indexOf(normalizarTexto(campo)) >= 0;
     }
 
     if (campo.length !== 0) {
         switch (filtro) {
             case '1':
-                console.log('filtrado por titulo');
                 librosFiltrados = libros.filter(l => contains(l.title, campo));
                 break;
             case '2':
-                console.log('filtrado por genero');
-                librosFiltrados = libros.filter(l => contains(l.genre, campo));
+                librosFiltrados = libros.filter(l => (contains(l.author, campo)));
                 break;
             case '3':
-                console.log('filtrado por autor');
-                librosFiltrados = libros.filter(l => (contains(l.author, campo)));
+                librosFiltrados = libros.filter(l => contains(l.genre, campo));
                 break;
             default:
         }
@@ -125,4 +140,4 @@ const filtrarLibros = (filtro = 0, campo = '') => {
 }
 
 
-export {libros,crearLibro,getBook,filtrarLibros,cargarLibros}
+export { libros, crearLibro, getBook, filtrarLibros, cargarLibros, descontarLibro, aumentarLibro }

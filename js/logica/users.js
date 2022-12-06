@@ -3,8 +3,17 @@ let users = []
 let userId = 0
 
 const crearUsuario = (nombre, pass, rol) => {
+
+    if(users.find(u=>u.nombre===nombre)){
+        console.log('Ya existe un usuario con ese nombre');
+        return false;
+    } else if(nombre.length === 0 || pass.length ===0){
+        console.log('Debe completar los datos');
+        return false
+    }
+
     users.push({
-        userId: userId++,
+        id: userId++,
         nombre,
         pass,
         rol: rol || 'user'
@@ -13,12 +22,11 @@ const crearUsuario = (nombre, pass, rol) => {
     localStorage.setItem('users', JSON.stringify(users));
     localStorage.removeItem('ultUserId');
     localStorage.setItem('ultUserId', userId)
+    return true;
 }
 
-const getUser = (userId) => {
-    let temp = Object.assign({},
-        users.slice().find(u => u.userId == userId));
-    delete temp.pass;
+const getUser = (id) => {
+    let temp = users.find(u => u.id == id);
     return temp;
 }
 

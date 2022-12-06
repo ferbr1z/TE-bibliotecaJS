@@ -1,55 +1,41 @@
-import { isActive } from './session.js'
-import { libros, getBook } from './books.js';
-const prestamos = [];
-const listaDeseos = [];
+import { getUserActive } from "./session.js";
+import { libros, getBook, descontarLibro, aumentarLibro } from "./books.js";
+import { getUser } from './users.js'
+let prestamos = [];
+let listaDeseos = [];
 let prestamoId = 0;
 
-const crearPrestamo = (libro, fechaVenc, user = isActive()) => {
-    if (!(libro && fechaVenc)) {
-        console.log("Ingrese todos los valores");
+const crearPrestamo = (libro, user = getUserActive()) => {
+    if (!(libro)) {
         return false;
     }
 
-    const libroId = libro;
-    const userId = user.userId;
-    const userExist = users.find((u) => u.userId == userId);
-    const libroExist = libros.find((l) => l.libroId == libroId);
+    descontarLibro(libro)
 
-    if (userExist && libroExist) {
-        const prestamo = {
-            prestamoId: prestamoId++,
-            libroId,
-            userId,
-            costo: 10000,
-            fecha: moment().format("DD/MM/YY"),
-            fechaVenc,
-        };
+    const prestamo = {
+        id: prestamoId++,
+        libroId: libro.id,
+        userId: user.id,
+        costo: libro.costo,
+        multa: 0,
+        fecha: moment().format("DD/MM/YY"),
+        fechaVenc: moment().add(30, 'day').format("DD/MM/YY"),
+    };
 
-        prestamos.push(prestamo);
-
-        localStorage.removeItem("prestamos");
-        localStorage.setItem("prestamos", JSON.stringify(prestamos));
-        localStorage.removeItem("ultPrestId");
-        localStorage.setItem("ultPrestId", prestamoId);
-        return true;
-    } else {
-        console.log("Ingrese valores válidos y/o existentes");
-        return false;
-    }
+    prestamos.push(prestamo);
+    guardarLocal();
+    return true;
 };
 
-const cargarDeseo = (id) => {
-    const libro = getBook(id);
-    listaDeseos.push(libro)
-}
-
-const hacerPrestamos = () => {
-    while (listaDeseos.length > 0) {
-        crearPrestamo(listaDeseos.pop())
-    }
+const guardarLocal = () => {
+    localStorage.removeItem("prestamos");
+    localStorage.setItem("prestamos", JSON.stringify(prestamos));
+    localStorage.removeItem("ultPrestId");
+    localStorage.setItem("ultPrestId", prestamoId);
 }
 
 const cargarPrestamos = () => {
+    prestamos = [];
     const prestamosStorage = JSON.parse(localStorage.getItem("prestamos"));
     if (prestamosStorage) {
         const ultPrestId = localStorage.getItem("ultPrestId");
@@ -58,12 +44,44 @@ const cargarPrestamos = () => {
     }
 };
 
+
+const crearDeseo = (id) => {
+    const libro = getBook(id);
+    if (listaDeseos.includes(libro)) {
+        alert("Ya tienes este libro en la lista de deseos");
+        return false;
+    } else {
+        listaDeseos.push(libro);
+        return true;
+    }
+};
+
+const hacerPrestamos = () => {
+    while (listaDeseos.length > 0) {
+        crearPrestamo(listaDeseos.pop());
+    }
+
+};
+
+const costoTotalDeseo = () => {
+    let costo = 0;
+    listaDeseos.forEach((l) => (costo += l.costo));
+    return costo;
+};
+
+const borrarDeseo = (id) => {
+    const listaNueva = listaDeseos.filter((libro) => libro.id !== id);
+    listaDeseos = listaNueva;
+    return true;
+};
+
 const verPrestamos = () => {
-    const userActive = isActive();
+    const userActive = getUserActive();
     if (userActive.rol === "admin") {
-        const result = prestamos.filter((p) => {
+        const result = prestamos.map((p) => {
             const result = {
-                prestamo: p.prestamoId,
+                id: p.id,
+                prestamo: p.id,
                 libro: getBook(p.libroId),
                 user: getUser(p.userId),
                 fecha: p.fecha,
@@ -76,15 +94,23 @@ const verPrestamos = () => {
     return false;
 };
 
-const misPrestamos = () => {
-    const userID = isActive().userId;
+const borrarPrestamo = (id, libroId) => {
+    aumentarLibro(libroId)
+    const listaNueva = prestamos.filter(prestamo => prestamo.id !== id);
+    prestamos = listaNueva;
+    guardarLocal();
+    return true;
+}
 
-    const result = prestamos.filter((p) => {
+const misPrestamos = () => {
+    const userID = getUserActive().id;
+    const result = prestamos.map((p) => {
         if (p.userId === userID) {
             const result = {
-                prestamo: p.prestamoId,
+                id: p.id,
+                prestamo: p.id,
                 libro: getBook(p.libroId),
-                user: getUser(p.userId),
+                // user: p.userId,
                 fecha: p.fecha,
                 fechaVenc: p.fechaVenc,
             };
@@ -94,4 +120,16 @@ const misPrestamos = () => {
     return result;
 };
 
-export { prestamos, cargarPrestamos, crearPrestamo, verPrestamos, misPrestamos, listaDeseos }
+export {
+    prestamos,
+    hacerPrestamos,
+    cargarPrestamos,
+    crearPrestamo,
+    verPrestamos,
+    misPrestamos,
+    listaDeseos,
+    crearDeseo,
+    costoTotalDeseo,
+    borrarDeseo,
+    borrarPrestamo
+};
