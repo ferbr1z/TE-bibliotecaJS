@@ -117,6 +117,7 @@ const misPrestamos = () => {
             return result;
         }
     });
+    console.log(result);
     return result;
 };
 

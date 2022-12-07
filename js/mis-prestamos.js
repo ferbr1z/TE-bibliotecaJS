@@ -14,6 +14,7 @@ const load = () => {
     const listaPrestamos = document.getElementById('lista-prestamos');
     misPrestamos().forEach(
         p => {
+            if (p===undefined) return null;
             
             // Crea el boton para devolver libro
             const btnDevolver = document.createElement('button');

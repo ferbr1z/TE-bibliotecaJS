@@ -17,11 +17,10 @@ const load = () => {
     verPrestamos().forEach(
         p => {
             
-
             // crea un nuevo tr para la lista
             const newTR = document.createElement('tr');
             newTR.setAttribute('id', `${p.id}`)
-            newTR.innerHTML = ` <td>${p.user.nombre}</td>
+            newTR.innerHTML = ` <td>@<b>${p.user.nombre}</b></td>   
                                 <td>${p.libro.title}</td>
                                 <td>${p.libro.year}</td>
                                 <td>${p.libro.genre}</td>
